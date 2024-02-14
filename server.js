@@ -10,6 +10,7 @@ server.listen(4276, () => {
 })
 
 mongoose.connect(DB_con_Str).then((con) => {
+    console.log('DB wired successfully')
 }).catch(err => {
     console.log(err)
 })
