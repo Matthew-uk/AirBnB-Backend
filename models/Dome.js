@@ -1,26 +1,24 @@
 const mongoose = require("mongoose");
 
 const DomeSchema = mongoose.Schema({
-	name: {
-		type: String,
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
 		required: true,
 	},
 	amenities: {
-		type: [
-			{
-				electrical_utility: [
-					{
-						type: String,
-						enum: ["TV", "Refrigerator", "Iron", "Heater"],
-					},
-				],
-				furniture: Number,
-				bedroom: Number,
-				bathroom: Number,
-				kitchen: Number,
-				number: Number,
-			},
-		],
+		type: {
+			electrical_utility: [
+				{
+					type: String,
+					enum: ["TV", "Refrigerator", "Iron", "Heater"],
+				},
+			],
+			furniture: Number,
+			bedroom: Number,
+			bathroom: Number,
+			kitchen: Number,
+		},
 		required: true,
 	},
 	state: {
@@ -49,4 +47,4 @@ const DomeSchema = mongoose.Schema({
 		required: true,
 	},
 });
-module.exports = mongoose.Model("Dome", DomeSchema);
+module.exports = mongoose.model("Dome", DomeSchema);
