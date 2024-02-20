@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const ReviewSchema = mongoose.Schema({
 	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
+		ref: "User",
 		required: true,
 	},
 	dome_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Dome',
-		required true,
+		ref: "Dome",
+		required: true,
 	},
 	amenities: {
 		type: [String],
@@ -34,4 +34,4 @@ const ReviewSchema = mongoose.Schema({
 	},
 	s,
 });
-module.exports = mongoose.Model("Dome", DomeSchema);
+module.exports = mongoose.Model("Review", ReviewSchema);

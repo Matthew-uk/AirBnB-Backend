@@ -6,17 +6,21 @@ const DomeSchema = mongoose.Schema({
 		required: true,
 	},
 	amenities: {
-		type: [{
-			electrical_utility: [{
-				type: String,
-				enum: ['TV', 'Refrigerator', 'Iron', 'Heater']
-			}],
-			furniture: Number,
-			bedroom: Number,
-			bathroom: Number,
-			kitchen: Number,
-			number: Number
-		}],
+		type: [
+			{
+				electrical_utility: [
+					{
+						type: String,
+						enum: ["TV", "Refrigerator", "Iron", "Heater"],
+					},
+				],
+				furniture: Number,
+				bedroom: Number,
+				bathroom: Number,
+				kitchen: Number,
+				number: Number,
+			},
+		],
 		required: true,
 	},
 	state: {
@@ -24,7 +28,12 @@ const DomeSchema = mongoose.Schema({
 		required: true,
 	},
 	city: {
-		type:
+		type: String,
+		required: true,
+	},
+	address: {
+		type: String,
+		required: true,
 	},
 	base_price_by_night: {
 		type: Number,
