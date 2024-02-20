@@ -44,3 +44,30 @@ exports.createdome = async (req, res, next) => {
 		});
 	}
 };
+exports.getdome = async (req, res, next) => {
+	const { owner } = req.body;
+	try {
+		if (!owner) {
+			const dome = await Dome.find();
+			return res.status(200).json({
+				status: "success",
+				message: "All domes fetched",
+				dome,
+			});
+		} else {
+			// I get an error from this place
+			const dome = await Dome.find({ owner });
+			return res.status(200).json({
+				status: "success",
+				message: `All domes fetched from owner: ${owner}`,
+				dome,
+			});
+		}
+	} catch (error) {
+		return res.status(500).json({
+			status: "error",
+			message: "An error occured while fetching domes",
+			error: error,
+		});
+	}
+};
