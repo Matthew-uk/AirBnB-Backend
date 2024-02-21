@@ -67,7 +67,7 @@ exports.getdome = async (req, res, next) => {
 		return res.status(500).json({
 			status: "error",
 			message: "An error occured while fetching domes",
-			error: error,
+			error: `Confirm if the id is valid, ${error.message}`,
 		});
 	}
 };
