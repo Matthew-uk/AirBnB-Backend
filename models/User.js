@@ -4,9 +4,15 @@ const validator = require('validator')
 const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
-    name: {
+    firstname: {
         type: String,
-        trim: true
+        trim: true,
+        required: [true]
+    },
+    lastname: {
+        type: String,
+        trim: true,
+        required: true
     },
     email: {
         type: String,
@@ -18,16 +24,40 @@ const userSchema = new mongoose.Schema({
                 return validator.isEmail(value);
             },
             message: 'Please enter a valid email address'
-        }
+        },
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true,
+    },
+    street: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
     },
     password: {
         type: String,
-        select: false
+        select: false,
+        required: true
     },
     role: {
         type: String,
         default: 'user',
         enum: ['user', 'admin']
+    },
+    googleId: {
+        type: String,
+    },
+    facebookId: {
+        type: String,
     },
     resetToken: {
         type: String,
@@ -49,7 +79,7 @@ userSchema.pre('save', async function (next) {
     next();
 })
 
-userSchema.methods.pwdMatch = async function (userPwd) {
+userSchema.methods.verifyPassword = async function (userPwd) {
     return await bcrypt.compare(userPwd, this.password);
 }
 
