@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const morgan  = require('morgan');
+const morgan = require("morgan");
 const passport = require('passport');
 const session    = require("express-session")
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -11,11 +11,12 @@ const store = new MongoDBStore({
   collection: 'sessions'
 })
 
-const { signup, login, forgetPwd, resetPwd, facebookAuthCBMW, facebookAuthCB, googleAuthCBMW, googleAuthCB } = require('./controllers/authCtrl');
+const { signup, login, forgetPwd, resetPwd, facebookAuthCBMW, facebookAuthCB, googleAuthCBMW, googleAuthCB } = require("./controllers/authCtrl");
+const dome = require("./routes/domeRoute");
 const userRoute = require('./routes/userRoute');
 
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(session({ 
   secret: process.env.SESSION_SECRET, 
@@ -38,12 +39,13 @@ app.post('/sign-in', passport.authenticate('local'), login);
 app.post('/forgot-password', forgetPwd);
 app.patch('/reset/:token', resetPwd);
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        resp: "Welcome to the Dome"
-    })
-})
+app.get("/", (req, res) => {
+	res.status(200).json({
+		resp: "Welcome to the Dome",
+	});
+});
 
+app.use("/", dome);
 app.use('/users', userRoute)
 
 module.exports = app;
